@@ -1,0 +1,49 @@
+﻿
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="todos">
+<head>
+    <title>TodoV2</title>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.js"></script>
+    <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.js"></script>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div ng-controller="HomeController"> 
+        <table> 
+            <tr>
+                <th>Number</th><th>Name</th><th>Task</th><th>Date</th><th>Rating</th><th>Actions</th>
+            </tr>
+            <tr ng-repeat="item in tempArr">
+                <td>{{$index}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.task}}</td>
+                <td>{{item.date}}</td>
+                <td>{{item.rating}}</td>
+                <td><button ng-click="doEdit($index)">Edit</button><button ng-click="doDelete($index)">Delete</button></td>
+            </tr>
+        </table>
+    
+        <input type="text" name="name" ng-model="tName" value="" placeholder="Name" />
+        <input type="text" name="name" ng-model="tTask" value="" placeholder="Task" />
+        <div style="display:inline-block; min-height:290px;">
+            <datepicker ng-model="dt" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+        </div>
+        <rating ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+        <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span>
+
+        <br />
+        <button ng-click="doAddBtn()" ng-show="!editMode">Add</button>
+        <button ng-click="doSave()" ng-show="editMode">Save</button>
+        <button ng-click="doCancelEdit()" ng-show="editMode">Cancel</button>
+    </div>
+
+    
+    
+    <!--<script src="Scripts/angular.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.js"></script>-->
+  
+    <script src="app/app.js"></script>
+    <script src="app/services/TodoService.js"></script>
+    <script src="app/controllers/HomeController.js"></script>
+</body>
+</html>
